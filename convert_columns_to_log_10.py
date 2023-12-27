@@ -29,9 +29,9 @@ def updates_bytes_value(row, position):
 
 def main():
     # Specify the file path
-    files = ["original_datasets/dataset_chromecast", "original_datasets/dataset_smart-tv"]
+    files = ["dataset_chromecast", "dataset_smart-tv"]
     for file in files:
-        new_data = update_csv('./' + file + '.csv')
-        writes_new_csv('./' + file + '_converted_version.csv', new_data)
+        new_data = update_csv('original_datasets/' + file + '.csv')
+        writes_new_csv('converted_datasets/' + file + '_converted_version.csv', new_data)
 
 main()
