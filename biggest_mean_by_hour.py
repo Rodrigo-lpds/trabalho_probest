@@ -6,9 +6,10 @@ import statsmodels.api as sm
 
 
 # Read the CSV file
-chromecast_data = pd.read_csv("./converted_datasets/dataset_chromecast_converted_version.csv")
-smart_tv_data = pd.read_csv("./converted_datasets/dataset_smart-tv_converted_version.csv")
-
+chromecast_data = pd.read_csv(
+    "./converted_datasets/dataset_chromecast_converted_version.csv")
+smart_tv_data = pd.read_csv(
+    "./converted_datasets/dataset_smart-tv_converted_version.csv")
 
 
 def transform_data(data):
@@ -17,13 +18,15 @@ def transform_data(data):
 
     # Extract the hour from the 'date_hour' column
     data['hour'] = data['date_hour'].dt.hour
-    
+
     return data
+
 
 def data_by_hour(data, hour):
     data = transform_data(data)
     """Returns the data filtered by hour"""
     return data[data['hour'] == hour]
+
 
 def plot_histogram(data, title):
     plt.hist(data, bins=calculate_bin_value_sturge_rule(data))
@@ -33,10 +36,12 @@ def plot_histogram(data, title):
     plt.savefig("histogram/" + title.replace(" ", "") + '.png')
     plt.show()
 
+
 def calculate_bin_value_sturge_rule(data):
     """Calculates the number of bins using Sturge's Rule"""
     n = len(data)
     return int(1 + 3.3 * math.log(n, 10))
+
 
 def plot_qqplot(data_1, data_2, title):
     # Fit a line to the QQ-plot
@@ -48,6 +53,7 @@ def plot_qqplot(data_1, data_2, title):
     plt.title(title)
     plt.savefig("qqplot/" + title.replace(" ", "") + '.png')
     plt.show()
+
 
 dataset_1 = data_by_hour(smart_tv_data, 20)['bytes_up']
 dataset_2 = data_by_hour(chromecast_data, 22)['bytes_up']

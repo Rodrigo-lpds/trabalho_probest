@@ -57,7 +57,7 @@ def plot_ecdf_matplotlib(data, title):
     plt.xlabel('Bytes')
     plt.ylabel('ECDF')
     plt.title(title)
-    plt.savefig("ecdf/"+ title.replace(" ", "") + '.png')
+    plt.savefig("ecdf/" + title.replace(" ", "") + '.png')
     plt.show()
 
 
@@ -75,6 +75,7 @@ def variance(data):
     """Calculates the variance"""
     return round(data.var(), 2)
 
+
 def write_statistics(file_name, data):
     """Writes the statistics to a file"""
     with open(file_name, 'w') as file:
@@ -83,30 +84,31 @@ def write_statistics(file_name, data):
         file.write('Desvio padrão: ' + str(standard_deviation(data)) + '\n')
 
 # plot upload histograms
-#plot_histogram(chromecast_bytes_up, 'Taxa de upload - Chromecast')
-#plot_histogram(smart_tv_bytes_up, 'Taxa de upload - Smart TV')
+# plot_histogram(chromecast_bytes_up, 'Taxa de upload - Chromecast')
+# plot_histogram(smart_tv_bytes_up, 'Taxa de upload - Smart TV')
 
 # plot download histograms
-#plot_histogram(chromecast_bytes_down, 'Taxa de download - Chromecast')
-#plot_histogram(smart_tv_bytes_down, 'Taxa de download - Smart TV')
+# plot_histogram(chromecast_bytes_down, 'Taxa de download - Chromecast')
+# plot_histogram(smart_tv_bytes_down, 'Taxa de download - Smart TV')
 
 # plot upload ecdf
-#plot_ecdf_matplotlib(chromecast_bytes_up, 'FDE - Taxa de Upload - Chromecast')
-#plot_ecdf_matplotlib(smart_tv_bytes_up, 'FDE - Taxa de Upload - Smart TV')
+# plot_ecdf_matplotlib(chromecast_bytes_up, 'FDE - Taxa de Upload - Chromecast')
+# plot_ecdf_matplotlib(smart_tv_bytes_up, 'FDE - Taxa de Upload - Smart TV')
 
 # plot download ecdf
-#plot_ecdf_matplotlib(chromecast_bytes_down, 'FDE - Taxa de Download - Chromecast')
-#plot_ecdf_matplotlib(smart_tv_bytes_down, 'FDE - Taxa de Download - Smart TV')
+# plot_ecdf_matplotlib(chromecast_bytes_down, 'FDE - Taxa de Download - Chromecast')
+# plot_ecdf_matplotlib(smart_tv_bytes_down, 'FDE - Taxa de Download - Smart TV')
 
 # calculate and print statistics
-#write_statistics('statistics/chromecast_bytes_up.txt', chromecast_bytes_up)
-#write_statistics('statistics/chromecast_bytes_down.txt', chromecast_bytes_down)
-#write_statistics('statistics/smart_tv_bytes_up.txt', smart_tv_bytes_up)
-#write_statistics('statistics/smart_tv_bytes_down.txt', smart_tv_bytes_down)
+# write_statistics('statistics/chromecast_bytes_up.txt', chromecast_bytes_up)
+# write_statistics('statistics/chromecast_bytes_down.txt', chromecast_bytes_down)
+# write_statistics('statistics/smart_tv_bytes_up.txt', smart_tv_bytes_up)
+# write_statistics('statistics/smart_tv_bytes_down.txt', smart_tv_bytes_down)
 
 # plot upload boxplot
 
-plot_box_plot_altogether([chromecast_bytes_down, 
-                          chromecast_bytes_up, 
+
+plot_box_plot_altogether([chromecast_bytes_down,
+                          chromecast_bytes_up,
                           smart_tv_bytes_down,
                           smart_tv_bytes_up], 'Chromecast vs Smart TV (upload e download respectivamente)')
