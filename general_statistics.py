@@ -46,6 +46,7 @@ def plot_box_plot_altogether(data, title):
     plt.boxplot(data)
     plt.ylabel('Bytes')
     plt.title(title)
+    plt.savefig("boxplot/" + title.replace(" ", "") + '.png')
     plt.show()
 
 
@@ -98,11 +99,14 @@ def write_statistics(file_name, data):
 #plot_ecdf_matplotlib(smart_tv_bytes_down, 'FDE - Taxa de Download - Smart TV')
 
 # calculate and print statistics
-write_statistics('statistics/chromecast_bytes_up.txt', chromecast_bytes_up)
-write_statistics('statistics/chromecast_bytes_down.txt', chromecast_bytes_down)
-write_statistics('statistics/smart_tv_bytes_up.txt', smart_tv_bytes_up)
-write_statistics('statistics/smart_tv_bytes_down.txt', smart_tv_bytes_down)
+#write_statistics('statistics/chromecast_bytes_up.txt', chromecast_bytes_up)
+#write_statistics('statistics/chromecast_bytes_down.txt', chromecast_bytes_down)
+#write_statistics('statistics/smart_tv_bytes_up.txt', smart_tv_bytes_up)
+#write_statistics('statistics/smart_tv_bytes_down.txt', smart_tv_bytes_down)
 
 # plot upload boxplot
 
-# plot_box_plot_altogether([bytes_down_values, chromecast_bytes_up], 'Upload vs Download')
+plot_box_plot_altogether([chromecast_bytes_down, 
+                          chromecast_bytes_up, 
+                          smart_tv_bytes_down,
+                          smart_tv_bytes_up], 'Chromecast vs Smart TV (upload e download respectivamente)')
