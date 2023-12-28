@@ -1,0 +1,3 @@
+Média: 2.16
+Variância: 4.11
+Desvio padrão: 2.03
