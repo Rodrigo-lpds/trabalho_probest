@@ -26,6 +26,14 @@ def plot_download_mean_by_hour(data, title):
     data = transform_data(data)
     # Calculate the mean by hour
     mean_by_hour = data.groupby('hour')['bytes_up'].mean()
+    #print(mean_by_hour)
+    # get index of max value of mean_by_hour
+    index_of_max = mean_by_hour.idxmax()
+    max_value = mean_by_hour.max()
+    print(title)
+    print(index_of_max, max_value)
+    print()
+    
     # Calculate the standard deviation by hour and add to chart
     std_by_hour = data.groupby('hour')['bytes_up'].std()
     # Calculate the variance by hour and add to chart
@@ -55,6 +63,13 @@ def plot_upload_mean_by_hour(data, title):
     # Calculate the variance by hour and add to chart
     variance_by_hour = data.groupby('hour')['bytes_up'].var()
 
+    # get index of max value of mean_by_hour
+    index_of_max = mean_by_hour.idxmax()
+    max_value = mean_by_hour.max()
+    print(title)
+    print(index_of_max, max_value)
+    print()
+
     # Create a point plot
     plt.errorbar(mean_by_hour.index, mean_by_hour.values, yerr=std_by_hour.values, fmt='o', capsize=6)
     
@@ -71,24 +86,54 @@ def plot_upload_mean_by_hour(data, title):
     plt.show()
 
 
-def create_24_subplots(data):
+def create_24_subplots_of_upload_data(data, title):
     """Creates 24 subplots"""
+    data = transform_data(data)
+    # set title
     # Create a figure with 24 subplots
-    fig, axes = plt.subplots(nrows=3, ncols=4, figsize=(12, 12))
+    fig, axes = plt.subplots(nrows=4, ncols=6, figsize=(10, 10))
 
     # Iterate over each hour
-    for hour, ax in zip(range(12), axes.flatten()):
+    for hour, ax in zip(range(24), axes.flatten()):
         # Filter the data for the current hour
         hour_data = data[data['hour'] == hour]
 
         # Create a box plot for the current hour
         ax.boxplot(hour_data['bytes_up'])
         ax.set_title(f'{hour}h')
-        ax.set_xlabel('Hora')
-        ax.set_ylabel('Taxa de Upload (bytes)')
 
     # Adjust the layout of the subplots
     plt.tight_layout()
+
+    
+    # save the figure
+    plt.savefig("boxplot/" + title.replace(" ", "") + '.png')
+
+    # Show the plot
+    plt.show()
+
+def create_24_subplots_of_download_data(data, title):
+    """Creates 24 subplots"""
+    data = transform_data(data)
+    # set title
+    # Create a figure with 24 subplots
+    fig, axes = plt.subplots(nrows=4, ncols=6, figsize=(10, 10))
+
+    # Iterate over each hour
+    for hour, ax in zip(range(24), axes.flatten()):
+        # Filter the data for the current hour
+        hour_data = data[data['hour'] == hour]
+
+        # Create a box plot for the current hour
+        ax.boxplot(hour_data['bytes_down'])
+        ax.set_title(f'{hour}h')
+
+    # Adjust the layout of the subplots
+    plt.tight_layout()
+
+    
+    # save the figure
+    plt.savefig("boxplot/" + title.replace(" ", "") + '.png')
 
     # Show the plot
     plt.show()
@@ -97,3 +142,8 @@ plot_download_mean_by_hour(chromecast_data, 'Média de Upload por Hora - Chromec
 plot_upload_mean_by_hour(chromecast_data, 'Média de Download por Hora - Chromecast')
 plot_download_mean_by_hour(smart_tv_data, 'Média de Upload por Hora - Smart TV')
 plot_upload_mean_by_hour(smart_tv_data, 'Média de Download por Hora - Smart TV')
+
+#create_24_subplots_of_download_data(chromecast_data, 'Boxplot de Upload por Hora - Chromecast')
+#create_24_subplots_of_upload_data(chromecast_data, 'Boxplot de Download por Hora - Chromecast')
+#create_24_subplots_of_download_data(smart_tv_data, 'Boxplot de Upload por Hora - Smart TV')
+#create_24_subplots_of_upload_data(smart_tv_data, 'Boxplot de Download por Hora - Smart TV')
