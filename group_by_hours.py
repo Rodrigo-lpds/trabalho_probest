@@ -28,9 +28,14 @@ def plot_download_mean_by_hour(data, title):
     mean_by_hour = data.groupby('hour')['bytes_up'].mean()
     # Calculate the standard deviation by hour and add to chart
     std_by_hour = data.groupby('hour')['bytes_up'].std()
+    # Calculate the variance by hour and add to chart
+    variance_by_hour = data.groupby('hour')['bytes_up'].var()
+    # Create a point plot with error bars for mean and standard deviation
+    plt.errorbar(mean_by_hour.index, mean_by_hour.values, yerr=std_by_hour.values, fmt='o', capsize=6, label='Mean with Std Dev')
 
-    # Create a point plot
-    plt.errorbar(mean_by_hour.index, mean_by_hour.values, yerr=std_by_hour.values, fmt='o', capsize=6)
+    # Add variance as a separate line plot
+    plt.fill_between(variance_by_hour.index, mean_by_hour - variance_by_hour, mean_by_hour + variance_by_hour, color='lightblue', alpha=0.3, label='Variance')
+
     plt.title(title)
     plt.xlabel('Hora')
     plt.ylabel('Média de Upload (bytes)')
@@ -47,9 +52,15 @@ def plot_upload_mean_by_hour(data, title):
     mean_by_hour = data.groupby('hour')['bytes_down'].mean()
     # Calculate the standard deviation by hour and add to chart
     std_by_hour = data.groupby('hour')['bytes_down'].std()
-    
+    # Calculate the variance by hour and add to chart
+    variance_by_hour = data.groupby('hour')['bytes_up'].var()
+
     # Create a point plot
     plt.errorbar(mean_by_hour.index, mean_by_hour.values, yerr=std_by_hour.values, fmt='o', capsize=6)
+    
+    # Add variance as a separate line plot
+    plt.fill_between(variance_by_hour.index, mean_by_hour - variance_by_hour, mean_by_hour + variance_by_hour, color='lightblue', alpha=0.3, label='Variance')
+
     plt.title(title)
     plt.xlabel('Hora')
     plt.ylabel('Média de Upload (bytes)')
